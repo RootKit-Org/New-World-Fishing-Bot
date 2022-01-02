@@ -16,10 +16,8 @@ def main():
     # Max random amount of time to add to the base
     castingRandom = .4
 
-    # Base reeling time it will always do
-    reelingBaseTime = .4
-    # Max random amount of time to add to the base
-    reelingRandom = .4
+    # How long to slack the line
+    lineSlackTime = 1.5
 
     # Adding randomness to the wait times for the animations
     animationSleepTime = .1 + (.1 * random.random())
@@ -55,12 +53,14 @@ def main():
     # Starting screenshotting object
     sct = mss.mss()
 
+    # This should resolve issues with the first cast being short
+    time.sleep(animationSleepTime * 3)
+
     while True:
         # Screenshot
         sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
         # Calculating those times
         castingTime = castingBaseTime + (castingRandom * random.random())
-        reelingTime = reelingBaseTime + (reelingRandom * random.random())
 
         # Like it says, casting
         print("Casting Line")
@@ -83,8 +83,12 @@ def main():
         while pyautogui.locate("imgs/holdCast.png", sctImg, grayscale=True, confidence=.55) is None:
             print("Reeling....")
             pyautogui.mouseDown()
-            time.sleep(reelingTime)
-            pyautogui.mouseUp()
+
+            # If icon is in the orange area slack the line
+            if pyautogui.locate("imgs/fishReelingOrange.png", sctImg, grayscale=True, confidence=.75) is not None:
+                print("Slacking line...")
+                pyautogui.mouseUp()
+                time.sleep(lineSlackTime)
 
             # Uses a lot of memory if you don't force collection
             gc.collect()
@@ -94,6 +98,8 @@ def main():
             # Reel down time
             time.sleep(animationSleepTime)
 
+        pyautogui.mouseUp()
+        time.sleep(animationSleepTime)
         print("Caught Fish")
 
         # 20% chance to move to avoid AFK timer
