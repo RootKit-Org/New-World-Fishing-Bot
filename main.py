@@ -1,3 +1,4 @@
+import cv2
 import pyautogui
 import time
 import random
@@ -5,6 +6,29 @@ import mss
 import numpy as np
 from PIL import Image
 import gc
+from pynput import keyboard
+
+template = cv2.imread('imgs/tension.png', cv2.IMREAD_GRAYSCALE)
+trows,tcols = template.shape[:2]
+
+def match(img):
+    image = img
+    # Convert BGR to HSV
+    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+    # Threshold the HSV image to get only red colors
+    mask1 = cv2.inRange(hsv, (0, 200, 150), (5, 255, 255))
+    mask2 = cv2.inRange(hsv, (175, 200, 20), (180, 255, 255))
+
+    # Bitwise-AND mask and original image
+    mask = cv2.bitwise_or(mask1, mask2)
+    output = cv2.bitwise_and(image, image, mask=mask)
+
+    if np.count_nonzero(output) == 0:
+        return False
+    else:
+        return True
+
 
 def main():
     """
@@ -12,9 +36,9 @@ def main():
     """
     # Max cast is 1.9 secs
     # Base time it will always cast at
-    castingBaseTime = 1.0
+    castingBaseTime = 1.03
     # Max random amount of time to add to the base
-    castingRandom = .4
+    castingRandom = .41
 
     # How long to slack the line
     lineSlackTime = 1.5
@@ -56,9 +80,11 @@ def main():
     # This should resolve issues with the first cast being short
     time.sleep(animationSleepTime * 3)
 
+
     while True:
         # Screenshot
-        sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
+        npImg = np.array(sct.grab(mssRegion))
+        sctImg = Image.fromarray(npImg)
         # Calculating those times
         castingTime = castingBaseTime + (castingRandom * random.random())
 
@@ -85,7 +111,7 @@ def main():
             pyautogui.mouseDown()
 
             # If icon is in the orange area slack the line
-            if pyautogui.locate("imgs/fishReelingOrange.png", sctImg, grayscale=True, confidence=.75) is not None:
+            if match(npImg):
                 print("Slacking line...")
                 pyautogui.mouseUp()
                 time.sleep(lineSlackTime)
@@ -93,7 +119,8 @@ def main():
             # Uses a lot of memory if you don't force collection
             gc.collect()
             # Screenshot
-            sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
+            npImg = np.array(sct.grab(mssRegion))
+            sctImg = Image.fromarray(npImg)
 
             # Reel down time
             time.sleep(animationSleepTime)
