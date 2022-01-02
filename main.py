@@ -6,6 +6,7 @@ import mss
 import numpy as np
 from PIL import Image
 import gc
+import pydirectinput
 
 
 def match(img):
@@ -17,12 +18,13 @@ def match(img):
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
     # Threshold the HSV image to get only red colors
-    mask1 = cv2.inRange(hsv, (0, 200, 150), (5, 255, 255))
-    mask2 = cv2.inRange(hsv, (175, 200, 20), (180, 255, 255))
+    # mask1 = cv2.inRange(hsv, (0, 200, 200), (5, 255, 255))
+    # mask2 = cv2.inRange(hsv, (175, 200, 20), (180, 255, 255))
+    mask2 = cv2.inRange(hsv, (179, 210, 200), (180, 212, 255))
 
     # Bitwise-AND mask and original image
-    mask = cv2.bitwise_or(mask1, mask2)
-    output = cv2.bitwise_and(image, image, mask=mask)
+    # mask = cv2.bitwise_or(mask1, mask2)
+    output = cv2.bitwise_and(image, image, mask=mask2)
 
     if np.count_nonzero(output) == 0:
         return False
@@ -82,6 +84,9 @@ def main():
 
 
     while True:
+        # Hold ALT for legendary animation cancel
+        pydirectinput.keyDown('altleft')
+
         # Screenshot
         npImg = np.array(sct.grab(mssRegion))
         sctImg = Image.fromarray(npImg)
@@ -125,7 +130,10 @@ def main():
             # Reel down time
             time.sleep(animationSleepTime)
 
+        time.sleep(0.4 + (.1 * random.random()))
+        pydirectinput.keyUp('altleft')
         pyautogui.mouseUp()
+
         time.sleep(animationSleepTime)
         print("Caught Fish")
 
