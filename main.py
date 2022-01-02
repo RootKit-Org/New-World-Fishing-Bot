@@ -8,10 +8,11 @@ from PIL import Image
 import gc
 from pynput import keyboard
 
-template = cv2.imread('imgs/tension.png', cv2.IMREAD_GRAYSCALE)
-trows,tcols = template.shape[:2]
 
 def match(img):
+    """
+    Compare captured screen region to threshold values to see if the line is about to break
+    """
     image = img
     # Convert BGR to HSV
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
