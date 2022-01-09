@@ -1,4 +1,5 @@
 import pyautogui
+import pydirectinput
 import time
 import random
 import mss
@@ -24,6 +25,9 @@ def main():
 
     # Randomly will move right or left to keep from AFKing
     moveDirection = ["a", "d"]
+
+    # Free cam key
+    freeCamKey = "alt"
 
     # Finds all Windows with the title "New World"
     newWorldWindows = pyautogui.getWindowsWithTitle("New World")
@@ -61,6 +65,10 @@ def main():
         sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
         # Calculating those times
         castingTime = castingBaseTime + (castingRandom * random.random())
+
+        # Hold the "Free Look" Button
+        print("Holding Free Look Button")
+        pydirectinput.keyDown(freeCamKey)
 
         # Like it says, casting
         print("Casting Line")
@@ -110,6 +118,10 @@ def main():
             pyautogui.keyUp(key)
 
         time.sleep(animationSleepTime)
+
+        # Release the "Free Look" Button
+        print("Released Free Look Button")
+        pydirectinput.keyUp(freeCamKey)
 
 
 # Runs the main function
