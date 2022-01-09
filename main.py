@@ -1,4 +1,5 @@
 import pyautogui
+import pydirectinput
 import time
 import random
 import mss
@@ -24,6 +25,9 @@ def main():
 
     # Randomly will move right or left to keep from AFKing
     moveDirection = ["a", "d"]
+
+    # Free cam key
+    freeCamKey = "alt"
 
     # Finds all Windows with the title "New World"
     newWorldWindows = pyautogui.getWindowsWithTitle("New World")
@@ -64,7 +68,7 @@ def main():
 
         # Hold the "Free Look" Button
         print("Holding Free Look Button")
-        pyautogui.keyDown('b')
+        pydirectinput.keyDown(freeCamKey)
 
         # Like it says, casting
         print("Casting Line")
@@ -117,7 +121,7 @@ def main():
 
         # Release the "Free Look" Button
         print("Released Free Look Button")
-        pyautogui.keyUp('b')
+        pydirectinput.keyUp(freeCamKey)
 
 
 # Runs the main function
