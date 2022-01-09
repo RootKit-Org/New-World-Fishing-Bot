@@ -62,6 +62,10 @@ def main():
         # Calculating those times
         castingTime = castingBaseTime + (castingRandom * random.random())
 
+        # Hold the "Free Look" Button
+        print("Holding Free Look Button")
+        pyautogui.keyDown('b')
+
         # Like it says, casting
         print("Casting Line")
         pyautogui.mouseDown()
@@ -110,6 +114,10 @@ def main():
             pyautogui.keyUp(key)
 
         time.sleep(animationSleepTime)
+
+        # Release the "Free Look" Button
+        print("Released Free Look Button")
+        pyautogui.keyUp('b')
 
 
 # Runs the main function
