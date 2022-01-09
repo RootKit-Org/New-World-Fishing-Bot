@@ -123,6 +123,29 @@ def main():
         print("Released Free Look Button")
         pydirectinput.keyUp(freeCamKey)
 
+        # 1% chance to repair the fishing rod
+        if random.randint(1, 100) == 100:
+            time.sleep(1)
+            pyautogui.press('tab')
+            pyautogui.moveTo(x=870, y=610)
+            pyautogui.keyDown('r')
+            pyautogui.click()
+            pyautogui.keyUp('r')
+            pyautogui.press('e')
+            pyautogui.press('esc')
+            time.sleep(1)
+            pyautogui.press('f3')
+            time.sleep(1)
+
+            # Re-Equip the bait
+            pyautogui.press('r')
+            time.sleep(.5)
+            pyautogui.moveTo(x=1185, y=460)
+            pyautogui.click()
+            pyautogui.moveTo(x=1500, y=825)
+            pyautogui.click()
+            time.sleep(2.5)
+
 
 # Runs the main function
 if __name__ == '__main__':
