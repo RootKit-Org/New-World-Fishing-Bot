@@ -1,3 +1,4 @@
+[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
 # Basic New World Fishing Bot
 Watch the video! - https://www.youtube.com/watch?v=TCv77s0AXvE
 
