@@ -12,7 +12,7 @@ Join teh Discord - https://discord.gg/rootkit
 
 2. Unzip the file and place the folder somewhere easy to access
 
-3. Make sure you have a pet Python (aka install python) - https://www.python.org/
+3. Make sure you have a pet Python (aka install python) - https://www.youtube.com/watch?v=N7r8_HVqqy8&ab_channel=RootKit
 
 4. (Windows Users) Open up either `PowerShell` or `Command Promt`. This can be done by pressing the Windows Key and searching for one of those applicaitons.
 
