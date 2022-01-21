@@ -25,7 +25,7 @@ pip install opencv-python
 pip install mss
 pip install numpy
 ```
-***IF YOU GET THE FOLLOWING ERROR `pip is not recognized as an internal or external command, operable program, or batch file` Ask someone in the discord to help you out. We will be releasing a video about this soon since all the videos available for it are garbage.***
+***IF YOU GET THE FOLLOWING ERROR `python is not recognized as an internal or external command, operable program, or batch file` Watch This: https://www.youtube.com/watch?v=E2HvWhhAW0g&ab_channel=RootKit***
 
 5. New World must be installed and running..... But you know this already right?
 
