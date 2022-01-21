@@ -98,6 +98,11 @@ def main():
                 pyautogui.mouseUp()
                 time.sleep(lineSlackTime)
 
+            # If Success text is found left click to skip caught animation
+            if pyautogui.locate("imgs/success.png", sctImg, grayscale=True, confidence=.50) is not None:
+                print("Success! Skipping caught animation")
+                pyautogui.click()
+
             # Uses a lot of memory if you don't force collection
             gc.collect()
             # Screenshot
