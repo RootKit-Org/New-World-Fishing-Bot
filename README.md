@@ -12,7 +12,7 @@ Join teh Discord - https://discord.gg/rootkit
 
 2. Unzip the file and place the folder somewhere easy to access
 
-3. Make sure you have a pet Python (aka install python) - https://www.youtube.com/watch?v=N7r8_HVqqy8&ab_channel=RootKit
+3. Make sure you have a pet Python (aka install python) - https://youtu.be/N7r8_HVqqy8
 
 4. (Windows Users) Open up either `PowerShell` or `Command Promt`. This can be done by pressing the Windows Key and searching for one of those applicaitons.
 
@@ -25,7 +25,9 @@ pip install opencv-python
 pip install mss
 pip install numpy
 ```
-***IF YOU GET THE FOLLOWING ERROR `python is not recognized as an internal or external command, operable program, or batch file` Watch This: https://www.youtube.com/watch?v=E2HvWhhAW0g&ab_channel=RootKit***
+***IF YOU GET THE FOLLOWING ERROR `python is not recognized as an internal or external command, operable program, or batch file` Watch This: https://youtu.be/E2HvWhhAW0g***
+
+***IF YOU GET THE FOLLOWING ERROR `pip is not recognized as an internal or external command, operable program, or batch file` Watch This: https://youtu.be/zWYvRS7DtOg***
 
 5. New World must be installed and running..... But you know this already right?
 
