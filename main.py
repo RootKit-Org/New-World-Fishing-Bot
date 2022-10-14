@@ -19,10 +19,10 @@ def main():
     castingRandom = .4
 
     # How long to slack the line
-    lineSlackTime = 2
+    lineSlackTime = 1.5
 
     # Adding randomness to the wait times for the animations
-    animationSleepTime = .5 + (.1 * random.random())
+    animationSleepTime = .1 + (.1 * random.random())
 
     # Randomly will move right or left to keep from AFKing
     moveDirection = ["a", "d"]
@@ -134,7 +134,7 @@ def main():
         
             
         # 20% chance to move to avoid AFK timer
-        if random.randint(1, 5) == 5:
+        if random.randint(1, 3) == 3:
             key = moveDirection[random.randint(0, 1)]
             pyautogui.keyDown(key)
             time.sleep(.1)
@@ -146,9 +146,9 @@ def main():
         print("Released Free Look Button")
         pydirectinput.keyUp(freeCamKey)
         
-        #repair rod
-        if i == 100:
-            print("repair Rod")
+        #Repair rod
+        if i % 100 == 0:
+            print("Repairing Rod")
             pyautogui.press('tab')
             time.sleep(1)
             pyautogui.moveTo(870,508)
