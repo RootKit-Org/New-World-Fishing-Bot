@@ -1,4 +1,5 @@
 import pyautogui
+import pygetwindow
 import pydirectinput
 import time
 import random
@@ -6,6 +7,10 @@ import mss
 import numpy as np
 from PIL import Image
 import gc
+import win32api
+import win32con
+import bettercam
+import cv2
 
 def main():
     """
@@ -29,9 +34,12 @@ def main():
     # Free cam key
     freeCamKey = "alt"
 
-    # Finds all Windows with the title "New World"
-    newWorldWindows = pyautogui.getWindowsWithTitle("New World")
+    visuals = False
 
+    # Finds all Windows with the title "New World"
+    newWorldWindows = pygetwindow.getWindowsWithTitle("New World")
+
+    # TODO - Fix this, cause it could choose the wrong window
     # Find the Window titled exactly "New World" (typically the actual game)
     for window in newWorldWindows:
         if window.title == "New World":
@@ -44,25 +52,45 @@ def main():
     # Move your mouse to the center of the game window
     centerW = newWorldWindow.left + (newWorldWindow.width/2)
     centerH = newWorldWindow.top + (newWorldWindow.height/2)
-    pyautogui.moveTo(centerW, centerH)
+
+    print(centerH, centerW)
+    # pyautogui.moveTo(centerW, centerH)
+    # win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE, int(centerW), int(centerH), 0, 0)
+
+    win32api.SetCursorPos((int(centerW), int(centerH)))
 
     # Clicky Clicky
     time.sleep(animationSleepTime)
-    pyautogui.click()
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN,0,0)
+    time.sleep(0.01)
+    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP,0,0)
     time.sleep(animationSleepTime)
 
-    # Selecting the middle 3rd of the New World Window
-    mssRegion = {"mon": 1, "top": newWorldWindow.top, "left": newWorldWindow.left + round(newWorldWindow.width/3), "width": round(newWorldWindow.width/3), "height": newWorldWindow.height}
+    # TODO - newWorldWindow.top keeps giving a negative number, so I'm just going to use 0 for now
+    region = (
+        newWorldWindow.left + round(newWorldWindow.width/3),
+        newWorldWindow.top,
+        newWorldWindow.left + (round(newWorldWindow.width/3)*2),
+        newWorldWindow.top + newWorldWindow.height
+    )
 
-    # Starting screenshotting object
-    sct = mss.mss()
-
+    camera = bettercam.create(region=region, output_color="BGRA", max_buffer_len=512)
+    camera.start(target_fps=120, video_mode=True)
     # This should resolve issues with the first cast being short
-    time.sleep(animationSleepTime * 3)
+    time.sleep(2)
 
-    while True:
-        # Screenshot
-        sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
+    while win32api.GetAsyncKeyState(ord("Q")) == 0:
+
+        npImg = np.array(camera.get_latest_frame())
+        npImg = npImg[:, :, 0:3]
+
+        sctImg = Image.fromarray(npImg)
+
+        if visuals:
+            cv2.imshow('Live Feed', npImg)
+            if (cv2.waitKey(1) & 0xFF) == ord('q'):
+                exit()
+
         # Calculating those times
         castingTime = castingBaseTime + (castingRandom * random.random())
 
@@ -76,35 +104,55 @@ def main():
         time.sleep(castingTime)
         pyautogui.mouseUp()
 
-        # Looking for the fish icon, doing forced garbage collection
-        while pyautogui.locate("imgs/fishIcon.png", sctImg, grayscale=True, confidence=.6) is None:
-            gc.collect()
-            # Screenshot
-            sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
+        time.sleep(2)
+
+        c = 0
+        while win32api.GetAsyncKeyState(ord("Q")) == 0:
+            sctImg = Image.fromarray(np.array(camera.get_latest_frame()))
+            try:
+                # Looking for the fish icon, doing forced garbage collection
+                if pyautogui.locate("imgs/fishIcon.png", sctImg, grayscale=True, confidence=.65) is not None:
+                    break
+            except Exception as e:
+                # print("Fish not found")
+                # print(c)
+                c += 1
+                continue
 
         # Hooking the fish
         print("Fish Hooked")
         pyautogui.click()
-        time.sleep(animationSleepTime)
+        time.sleep(2)
 
         # Keeps reeling into "HOLD Cast" text shows on screen
-        while pyautogui.locate("imgs/holdCast.png", sctImg, grayscale=True, confidence=.55) is None:
+        while win32api.GetAsyncKeyState(ord("Q")) == 0:
+            sctImg = Image.fromarray(np.array(camera.get_latest_frame()))
+
+            try:
+                if pyautogui.locate("imgs/fishHook.png", sctImg, grayscale=True, confidence=.55) is not None:
+                    break
+            except Exception as e:
+                pass
             print("Reeling....")
             pyautogui.mouseDown()
 
-            # If icon is in the orange area slack the line
-            if pyautogui.locate("imgs/fishReelingOrange.png", sctImg, grayscale=True, confidence=.75) is not None:
-                print("Slacking line...")
-                pyautogui.mouseUp()
-                time.sleep(lineSlackTime)
+            try:
+                # If icon is in the orange area slack the line
+                if pyautogui.locate("imgs/fishReelingOrange.png", sctImg, grayscale=True, confidence=.75) is not None:
+                    print("Slacking line...")
+                    pyautogui.mouseUp()
+                    time.sleep(lineSlackTime)
+            except Exception as e:
+                pass
 
             # Uses a lot of memory if you don't force collection
             gc.collect()
             # Screenshot
-            sctImg = Image.fromarray(np.array(sct.grab(mssRegion)))
+            sctImg = Image.fromarray(npImg)
 
             # Reel down time
             time.sleep(animationSleepTime)
+
 
         pyautogui.mouseUp()
         time.sleep(animationSleepTime)
@@ -126,4 +174,10 @@ def main():
 
 # Runs the main function
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+    
+    pydirectinput.keyUp('alt')

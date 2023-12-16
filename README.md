@@ -24,7 +24,15 @@ pip install Pillow
 pip install opencv-python
 pip install mss
 pip install numpy
+pip install bettercam
+pip install win32api
+pip install win32con
 ```
+OR, just run the following
+```
+pip install -r requirements.txt
+```
+
 ***IF YOU GET THE FOLLOWING ERROR `python is not recognized as an internal or external command, operable program, or batch file` Watch This: https://youtu.be/E2HvWhhAW0g***
 
 ***IF YOU GET THE FOLLOWING ERROR `pip is not recognized as an internal or external command, operable program, or batch file` Watch This: https://youtu.be/zWYvRS7DtOg***
