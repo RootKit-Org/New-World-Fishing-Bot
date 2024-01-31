@@ -14,9 +14,9 @@ Join teh Discord - https://discord.gg/rootkit
 
 3. Make sure you have a pet Python (aka install python) - https://youtu.be/N7r8_HVqqy8
 
-4. (Windows Users) Open up either `PowerShell` or `Command Promt`. This can be done by pressing the Windows Key and searching for one of those applicaitons.
+4. (Windows Users) Open up either `PowerShell` or `Command Prompt`. This can be done by pressing the Windows Key and searching for one of those applications.
 
-5. Copy and past the commands below into your terminal. This will install the Open Source packages needed to run the program.
+5. Copy and paste the commands below into your terminal. This will install the Open Source packages needed to run the program.
 ```
 pip install PyAutoGUI
 pip install PyDirectInput
@@ -40,9 +40,9 @@ pip install -r requirements.txt
 5. New World must be installed and running..... But you know this already right?
 
 ### Run
-If you have python and the packages you are good to go. Load up New World on your MAIN monitor (Only applicable for people with multiple monitors), enter the game and walk you favorite fishing spot, set up your rod with bait, and do the following.
+If you have python and the packages you are good to go. Load up New World on your MAIN monitor (Only applicable for people with multiple monitors), enter the game and walk to your favorite fishing spot, set up your rod with bait, and do the following.
 
-1. (Windows Users) Open up either `PowerShell` or `Command Promt`. This can be done by pressing the Windows Key and searching for one of those applicaitons.
+1. (Windows Users) Open up either `PowerShell` or `Command Prompt`. This can be done by pressing the Windows Key and searching for one of those applications:
 
 2. Type `cd ` (make sure you add the space after the cd or else I will call you a monkey)
 
