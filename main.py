@@ -18,9 +18,9 @@ def main():
     """
     # Max cast is 1.9 secs
     # Base time it will always cast at
-    castingBaseTime = 1.0
+    castingBaseTime = .5
     # Max random amount of time to add to the base
-    castingRandom = .4
+    castingRandom = .3
 
     # How long to slack the line
     lineSlackTime = 1.5
@@ -82,7 +82,6 @@ def main():
     while win32api.GetAsyncKeyState(ord("Q")) == 0:
 
         npImg = np.array(camera.get_latest_frame())
-        npImg = npImg[:, :, 0:3]
 
         sctImg = Image.fromarray(npImg)
 
@@ -129,7 +128,7 @@ def main():
             sctImg = Image.fromarray(np.array(camera.get_latest_frame()))
 
             try:
-                if pyautogui.locate("imgs/fishHook.png", sctImg, grayscale=True, confidence=.55) is not None:
+                if pyautogui.locate("imgs/cast.png", sctImg, grayscale=True, confidence=.50) is not None:
                     break
             except Exception as e:
                 pass
