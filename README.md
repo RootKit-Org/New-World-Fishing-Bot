@@ -2,7 +2,7 @@
 # Basic New World Fishing Bot
 Watch the video! (**We WON our legal dispute with Amazon, so the video is back up! Amazon went after us because OUR BOT WORKS THAT WELL XD**) - https://www.youtube.com/watch?v=TCv77s0AXvE
 
-Join teh Discord - https://discord.gg/rootkit
+Join teh Discord - https://discord.gg/rootkitorg
 
 ### Known Features
 - Works out of the box when being ran at 1920x1080
