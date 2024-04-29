@@ -5,5 +5,4 @@ opencv-python
 mss
 numpy
 bettercam
-win32api
-win32con
+pywin32
