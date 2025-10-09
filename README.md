@@ -1,4 +1,8 @@
-[![Pull Requests Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+> [!CAUTION]
+> # This tool is No Longer Supported by RootKit
+> We will not offer help for issues that arise with this program, or assist in getting it running on your machine.
+> You are free to fork and edit this tool yourself.
+
 # Basic New World Fishing Bot
 Watch the video! (**We WON our legal dispute with Amazon, so the video is back up! Amazon went after us because OUR BOT WORKS THAT WELL XD**) - https://www.youtube.com/watch?v=TCv77s0AXvE
 
